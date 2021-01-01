@@ -23,7 +23,10 @@
     <ClInclude Include="Menus.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="Structures.h">
+    <ClInclude Include="Startup.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Structures-functions.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
