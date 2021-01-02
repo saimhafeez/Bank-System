@@ -6,7 +6,8 @@ void DEV_mode();
 
 void MENU_main()
 {
-	int i, select = 0;
+	int i;
+	char select = NULL;
 	char random_no[70];
 	char verify[10];
 	char pass_user[10];
@@ -19,32 +20,30 @@ void MENU_main()
 	fclose(Fetch_P);
 	//printf("\n%s\n", pass);
 	//printf("\n%d\n", strlen(pass));
-	{
-		for (i = 0; i < 34; i++)
-		{
-			printf("%c", 219);
-		}
+	do{
+		for (i = 0; i < 34; i++) { printf("%c", 219); }
 		printf("\n%c %-30s %c\n", 219, "     Welcome To Grand Bank", 219);
 		printf("%c %-30s %c\n", 219, "         Online Portal", 219);
-		printf("%c %-30s %c\n", 219, "01. --> Login", 219);
-		printf("%c %-30s %c\n", 219, "02. --> Signup", 219);
-		printf("%c %-30s %c\n", 219, "03. --> Exit", 219);
-		printf("%c %-30s %c\n", 219, "04. --> Dev Mode", 219);
-		for (i = 0; i < 34; i++)
+		printf("%c %-30s %c\n", 219, "Press 1 To Login", 219);
+		printf("%c %-30s %c\n", 219, "Press 2 To Signup", 219);
+		printf("%c %-30s %c\n", 219, "Press 3 To Exit", 219);
+		printf("%c %-30s %c\n", 219, "Press / To Enter Dev Mode", 219);
+		for (i = 0; i < 34; i++) { printf("%c", 219); }printf("\n");
+
+		select = getch();
+		switch (select)
 		{
-			printf("%c", 219);
-		}
-		printf("\n%c %s--> ", 219, "SELECT");
-		scanf("%d", &select);
-		if (select == 1)
+		case '1':
 		{
 			MENU_login();
+			break;
 		}
-		else if (select == 2)
+		case '2':
 		{
 			MENU_signup();
+			break;
 		}
-		else if (select == 4)
+		case '/':
 		{
 			do
 			{
@@ -56,7 +55,7 @@ void MENU_main()
 					printf("%c Validation Failed, Try again\n", 219);
 				}
 			} while (strcmp(verify, random_no) != 0);
-			
+
 			if (strcmp(verify, random_no) == 0)
 			{
 				printf("%c--> Password: ", 219);
@@ -67,12 +66,14 @@ void MENU_main()
 					DEV_mode();
 				}
 			}
+			break;
 		}
-		else
+		default:
 		{
-			printf("%c %-30s %c\n", 219, "SELECT: ", 219);
+			printf("%c Invalid Command\n");
 		}
-	} while (select != 6);
+		}
+	} while (select != '3');
 }
 
 void MENU_signup()
@@ -103,8 +104,8 @@ void MENU_signup()
 			FILE* User_basic;
 			User_basic = fopen("user_accounts.bin", "ab");
 			fprintf(User_basic, "\n%s %s %s %s %s %s %d %d %d %d",
-				UA[i].email, UA[i].password, UA[i].name_first, UA[i].gender,
-				UA[i].name_last, UA[i].cnic, UA[i].DB.day, UA[i].DB.month, UA[i].DB.year,
+				UA[i].email, UA[i].password, UA[i].name_first, UA[i].name_last,
+				UA[i].gender, UA[i].cnic, UA[i].DB.day, UA[i].DB.month, UA[i].DB.year,
 				UA[i].account_no);
 			fclose(User_basic);
 			printf("%c%c%c%c Would you like to complete your profile now or\n", 219, 219, 219, 219);
@@ -139,6 +140,7 @@ void Additional_info(int index)
 void MENU_login()
 {
 	int i, flag = 0;
+	char select = NULL;
 	char email[STRING_LENGTH], password[STRING_LENGTH];
 	printf("%c--> Enter Email: ", 219);
 	getchar();
@@ -150,7 +152,21 @@ void MENU_login()
 	{
 		if (strcmp(email, UA[i].email) == 0 && strcmp(password, UA[i].password) == 0)
 		{
-			printf("%c--> login successful!", 219);
+			printf("%c--> login successful!\n", 219);
+			do
+			{
+				printf("%c--> Press 1 To View Profile\n", 219);
+				printf("%c--> Press ESC To Logout\n", 219);
+				select = getch();
+				switch (select)
+				{
+				case '1':
+				{
+					View(i);
+					break;
+				}
+				}
+			} while (select != 27);
 			flag = 0;
 			break;
 		}
@@ -168,9 +184,8 @@ void MENU_login()
 
 void DEV_mode()
 {
-	char select = NULL;
 	int i;
-	char choice = NULL;
+	char select = NULL;
 	loading(13, 4);
 	do
 	{
@@ -196,12 +211,7 @@ void DEV_mode()
 		{
 			break;
 		}
-		case 27:
-		{
-			MENU_main();
-			break;
 		}
-		}
-	} while (select != 3);
+	} while (select != 27);
 	
 }
