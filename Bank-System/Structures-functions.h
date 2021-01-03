@@ -1,5 +1,10 @@
 #pragma once
 char verfication_code[STRING_LENGTH];
+
+struct User_assets {
+	int Balance = 0;
+};
+
 struct date_birth {
 	int day, month, year;
 };
@@ -20,6 +25,7 @@ struct User_account {
 	int account_no;
 	struct date_birth DB;
 	struct Additional_info AI;
+	struct User_assets UAS;
 }UA[RECORD_DATA], Del_record;
 
 int Search_account(int account_no)

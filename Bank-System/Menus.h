@@ -3,7 +3,7 @@ void MENU_signup();
 void Additional_info(int index);
 void MENU_login();
 void DEV_mode();
-
+void LOGIN_PAGE(int index);
 void MENU_main()
 {
 	int i;
@@ -26,7 +26,7 @@ void MENU_main()
 		printf("%c %-30s %c\n", 219, "         Online Portal", 219);
 		printf("%c %-30s %c\n", 219, "Press 1 To Login", 219);
 		printf("%c %-30s %c\n", 219, "Press 2 To Signup", 219);
-		printf("%c %-30s %c\n", 219, "Press 3 To Exit", 219);
+		printf("%c %-30s %c\n", 219, "Press ESC To Exit", 219);
 		printf("%c %-30s %c\n", 219, "Press / To Enter Dev Mode", 219);
 		for (i = 0; i < 34; i++) { printf("%c", 219); }printf("\n");
 
@@ -41,6 +41,11 @@ void MENU_main()
 		case '2':
 		{
 			MENU_signup();
+			break;
+		}
+		case 27:
+		{
+			loading(7, 7);
 			break;
 		}
 		case '/':
@@ -70,10 +75,11 @@ void MENU_main()
 		}
 		default:
 		{
-			printf("%c Invalid Command\n");
+			printf("%c Invalid Command\n", 219);
+			break;
 		}
 		}
-	} while (select != '3');
+	} while (select != 27);
 }
 
 void MENU_signup()
@@ -140,33 +146,20 @@ void Additional_info(int index)
 void MENU_login()
 {
 	int i, flag = 0;
-	char select = NULL;
 	char email[STRING_LENGTH], password[STRING_LENGTH];
 	printf("%c--> Enter Email: ", 219);
-	getchar();
 	gets_s(email);
+	//printf("%s\n", email);
 	printf("%c--> Enter Password: ", 219);
-
 	gets_s(password);
+	//printf("%s\n", password);
+	loading(13, 6);
 	for (i = 0; i < RECORD_DATA; i++)
 	{
 		if (strcmp(email, UA[i].email) == 0 && strcmp(password, UA[i].password) == 0)
 		{
 			printf("%c--> login successful!\n", 219);
-			do
-			{
-				printf("%c--> Press 1 To View Profile\n", 219);
-				printf("%c--> Press ESC To Logout\n", 219);
-				select = getch();
-				switch (select)
-				{
-				case '1':
-				{
-					View(i);
-					break;
-				}
-				}
-			} while (select != 27);
+			LOGIN_PAGE(i);
 			flag = 0;
 			break;
 		}
@@ -214,4 +207,30 @@ void DEV_mode()
 		}
 	} while (select != 27);
 	
+}
+
+void LOGIN_PAGE(int index)
+{
+	char select = NULL;
+	printf("%c Welcome %s %s\n", 219, UA[index].name_first, UA[index].name_last);
+	do
+	{
+		printf("%c--> Press 1 To View Profile\n", 219);
+		printf("%c--> Press ESC To Logout\n", 219);
+		select = getch();
+		switch (select)
+		{
+		case '1':
+		{
+			printf("%c %-20s: %d\n", 219, "Balance", UA[index].UAS.Balance);
+			printf("%c %-20s: %02d-%02d-%d\n", 219, "Date-of-Birth", UA[index].DB.day, UA[index].DB.month, UA[index].DB.year);
+			printf("%c %-20s: %s\n", 219, "CNIC", UA[index].cnic);
+			printf("%c %-20s: %d\n", 219, "Account no", UA[index].account_no);
+			printf("%c %-20s: %s\n", 219, "Phone no", UA[index].AI.phone_no);
+			printf("%c %-20s: %s\n", 219, "Zipcode", UA[index].AI.zipcode);
+			printf("%c %-20s: %s\n", 219, "Address", UA[index].AI.address);
+			break;
+		}
+		}
+	} while (select != 27);
 }
