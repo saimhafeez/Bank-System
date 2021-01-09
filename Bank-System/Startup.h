@@ -2,8 +2,15 @@
 int account_no = 204060;
 void Startup()
 {
-	int i = 0, hold_account_no = 0, index;
+	int i = 0, hold_account_no = 0, index, j;
 	char hold_phone_no[STRING_LENGTH], hold_zipcode[STRING_LENGTH], hold_address[STRING_LENGTH];
+
+	for (j = 0; j < RECORD_DATA; j++)
+	{
+		strcpy(UA[j].AI.address, "N/A");
+		strcpy(UA[j].AI.phone_no, "N/A");
+		strcpy(UA[j].AI.zipcode, "N/A");
+	}
 	FILE* User_basic_scan = fopen("user_accounts.bin", "rb");
 	if (User_basic_scan == NULL)
 	{

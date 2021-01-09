@@ -4,6 +4,7 @@ void Additional_info(int index);
 void MENU_login();
 void DEV_mode();
 void LOGIN_PAGE(int index);
+void DepositMoney(int index);
 void MENU_main()
 {
 	int i;
@@ -212,17 +213,19 @@ void DEV_mode()
 void LOGIN_PAGE(int index)
 {
 	char select = NULL;
+	char select_2 = NULL;
 	printf("%c Welcome %s %s\n", 219, UA[index].name_first, UA[index].name_last);
 	do
 	{
 		printf("%c--> Press 1 To View Profile\n", 219);
+		printf("%c--> Press 2 For Transaction Options\n", 219);
 		printf("%c--> Press ESC To Logout\n", 219);
 		select = getch();
 		switch (select)
 		{
 		case '1':
 		{
-			printf("%c %-20s: %d\n", 219, "Balance", UA[index].UAS.Balance);
+			printf("%c %-20s: %lf\n", 219, "Balance", UA[index].UAS.Balance);
 			printf("%c %-20s: %02d-%02d-%d\n", 219, "Date-of-Birth", UA[index].DB.day, UA[index].DB.month, UA[index].DB.year);
 			printf("%c %-20s: %s\n", 219, "CNIC", UA[index].cnic);
 			printf("%c %-20s: %d\n", 219, "Account no", UA[index].account_no);
@@ -231,6 +234,56 @@ void LOGIN_PAGE(int index)
 			printf("%c %-20s: %s\n", 219, "Address", UA[index].AI.address);
 			break;
 		}
+		case '2':
+		{
+			printf("%c--> Press 1: Deposit Money\n", 219);
+			printf("%c--> Press 2: Transaction History\n", 219);
+			printf("%c--> Press ESC To Logout\n", 219);
+			select_2 = getch();
+			switch (select_2)
+			{
+			case '1':
+			{
+				DepositMoney(index);
+				break;
+			}
+			}
+			break;
+		}
 		}
 	} while (select != 27);
+}
+
+void DepositMoney(int index)
+{
+	char select = NULL;
+	printf("%c%c%c Deposit Money\n", 219, 219, 219);
+	printf("%c Method\n", 219);
+	printf("%c Press 1: By-Hand\n", 219);
+	printf("%c Press 2: Transfer from Other Account\n", 219);
+	select = getch();
+	switch (select)
+	{
+	case '1':
+	{
+		printf("%c --> Deposit Money (Rs): ", 219);
+		scanf("%lf", &UA[index].UAS.Balance);
+		break;
+	}
+	case '2':
+	{
+		printf("%c --> Sender Name: ", 219);
+		gets_s(UA[index].UAS.Sender_name);
+		printf("%c --> Sender Account No: ", 219);
+		gets_s(UA[index].UAS.Sender_acc_no);
+		printf("%c --> Deposit Money (Rs): ", 219);
+		scanf("%lf", &UA[index].UAS.Balance);
+		break;
+	}
+	default:
+	{
+		printf("%c Invalid Command\n", 219);
+	}
+	}
+	system("pause\n");
 }

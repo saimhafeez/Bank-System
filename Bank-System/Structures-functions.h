@@ -2,7 +2,9 @@
 char verfication_code[STRING_LENGTH];
 
 struct User_assets {
-	int Balance = 0;
+	double Balance = 0;
+	char Sender_name[STRING_LENGTH];
+	char Sender_acc_no[STRING_LENGTH];
 };
 
 struct date_birth {
