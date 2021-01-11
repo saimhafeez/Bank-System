@@ -258,7 +258,7 @@ void DepositMoney(int index)
 {
 	char select = NULL;
 	printf("%c%c%c Deposit Money\n", 219, 219, 219);
-	printf("%c Method\n", 219);
+	printf("%c Select Method\n", 219);
 	printf("%c Press 1: By-Hand\n", 219);
 	printf("%c Press 2: Transfer from Other Account\n", 219);
 	select = getch();
@@ -268,6 +268,8 @@ void DepositMoney(int index)
 	{
 		printf("%c --> Deposit Money (Rs): ", 219);
 		scanf("%lf", &UA[index].UAS.Balance);
+		strcpy(UA[index].UAS.Sender_name, "N/A");
+		strcpy(UA[index].UAS.Sender_acc_no, "N/A");
 		break;
 	}
 	case '2':
@@ -285,5 +287,11 @@ void DepositMoney(int index)
 		printf("%c Invalid Command\n", 219);
 	}
 	}
+	FILE* Deposit_print = fopen("Deposit_data.bin","ab");
+	fprintf(Deposit_print, "\n%d %lf %s %s",
+		UA[index].account_no, UA[index].UAS.Balance,
+		UA[index].UAS.Sender_name, UA[index].UAS.Sender_acc_no);
+	fclose(Deposit_print);
+	printf("Payment successful at %s", Get_DATE_TIME());
 	system("pause\n");
 }

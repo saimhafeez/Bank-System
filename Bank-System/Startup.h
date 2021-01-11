@@ -43,4 +43,24 @@ void Startup()
 		}
 	} 
 	fclose(User_additional_scan);
+
+	char hold_sender_name[STRING_LENGTH], hold_sender_acc_no[STRING_LENGTH];
+	double hold_balance;
+	int index2;
+	FILE* Deposit_scan = fopen("Deposit_data.bin", "rb");
+	while (!feof(Deposit_scan))
+	{
+		fscanf(Deposit_scan, "\n%d %lf %s %s",
+			&hold_account_no, &hold_balance,
+			hold_sender_name, hold_sender_acc_no);
+		index2 = Search_account(hold_account_no);
+		printf("\nindex = %d\n", index2);
+		if (index2 != -1)
+		{
+			UA[index2].UAS.Balance = hold_balance;
+			strcpy(UA[index2].UAS.Sender_name, hold_sender_name);
+			strcpy(UA[index2].UAS.Sender_acc_no, hold_sender_acc_no);
+		}
+	}
+	fclose(Deposit_scan);
 }

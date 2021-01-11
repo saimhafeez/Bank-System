@@ -5,6 +5,7 @@ struct User_assets {
 	double Balance = 0;
 	char Sender_name[STRING_LENGTH];
 	char Sender_acc_no[STRING_LENGTH];
+
 };
 
 struct date_birth {
@@ -113,4 +114,11 @@ const char* rand_string(int length)
 	}
 	//printf("\n%s\n", str);
 	return str;
+}
+
+const char* Get_DATE_TIME()
+{
+	time_t t;
+	time(&t);
+	return ctime(&t);
 }
