@@ -11,7 +11,7 @@ void Startup()
 		strcpy(UA[j].AI.phone_no, "N/A");
 		strcpy(UA[j].AI.zipcode, "N/A");
 	}
-	FILE* User_basic_scan = fopen("user_accounts.bin", "rb");
+	FILE* User_basic_scan = fopen("DATA_FILES\\user_accounts.bin", "rb");
 	if (User_basic_scan == NULL)
 	{
 		printf("File not Found\n");
@@ -29,7 +29,7 @@ void Startup()
 		account_no = UA[i - 1].account_no + 10;
 		fclose(User_basic_scan);
 	}
-	FILE* User_additional_scan = fopen("user_additional_info.bin", "rb");
+	FILE* User_additional_scan = fopen("DATA_FILES\\user_additional_info.bin", "rb");
 	while (!feof(User_additional_scan))
 	{
 		fscanf(User_additional_scan, "\n%d %s %s %s",
@@ -47,14 +47,14 @@ void Startup()
 	char hold_sender_name[STRING_LENGTH], hold_sender_acc_no[STRING_LENGTH];
 	double hold_balance;
 	int index2;
-	FILE* Deposit_scan = fopen("Deposit_data.bin", "rb");
+	FILE* Deposit_scan = fopen("DATA_FILES\\Deposit_data.bin", "rb");
 	while (!feof(Deposit_scan))
 	{
 		fscanf(Deposit_scan, "\n%d %lf %s %s",
 			&hold_account_no, &hold_balance,
 			hold_sender_name, hold_sender_acc_no);
 		index2 = Search_account(hold_account_no);
-		printf("\nindex = %d\n", index2);
+		//printf("\nindex = %d\n", index2);
 		if (index2 != -1)
 		{
 			UA[index2].UAS.Balance = hold_balance;

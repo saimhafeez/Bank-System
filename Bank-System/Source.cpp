@@ -6,14 +6,14 @@
 #include <conio.h>
 #include <time.h>
 #include <iostream>
-enum Colors { blue = 1, green, cyan, red, purple, yellow, grey, dgrey, hblue, hgreen, hred, hpurple, hyellow, hwhite };
+enum Colors { black = 0, blue, green, cyan, red, purple, yellow, grey, dgrey, hblue, hgreen, hred, hpurple, hyellow, hwhite };
 HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
 #define STRING_LENGTH 100
 #define RECORD_DATA 5
 #define RESET_COLOR "\033[0m"
-#include "Structures-functions.h"
-#include "Startup.h"
-#include "Menus.h"
+#include "HEADER_FILES/Structures-functions.h"
+#include "HEADER_FILES/Startup.h"
+#include "HEADER_FILES/Menus.h"
 
 int main()
 {

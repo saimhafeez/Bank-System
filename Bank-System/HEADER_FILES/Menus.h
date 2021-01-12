@@ -13,7 +13,7 @@ void MENU_main()
 	char verify[10];
 	char pass_user[10];
 	char pass[10];
-	FILE* Fetch_P = fopen("dev_p.bin", "rb");
+	FILE* Fetch_P = fopen("DATA_FILES\\dev_p.bin", "rb");
 	while (!feof(Fetch_P))
 	{
 		fscanf(Fetch_P, "%s", pass);
@@ -109,7 +109,7 @@ void MENU_signup()
 			UA[i].account_no = account_no;
 			account_no += 10;
 			FILE* User_basic;
-			User_basic = fopen("user_accounts.bin", "ab");
+			User_basic = fopen("DATA_FILES\\user_accounts.bin", "ab");
 			fprintf(User_basic, "\n%s %s %s %s %s %s %d %d %d %d",
 				UA[i].email, UA[i].password, UA[i].name_first, UA[i].name_last,
 				UA[i].gender, UA[i].cnic, UA[i].DB.day, UA[i].DB.month, UA[i].DB.year,
@@ -138,7 +138,7 @@ void Additional_info(int index)
 	gets_s(UA[index].AI.zipcode);
 	printf("%c--> Address: ", 219);
 	gets_s(UA[index].AI.address);
-	FILE* User_additional_print = fopen("user_additional_info.bin", "ab");
+	FILE* User_additional_print = fopen("DATA_FILES\\user_additional_info.bin", "ab");
 	fprintf(User_additional_print, "\n%d %s %s %s",
 		UA[index].account_no, UA[index].AI.phone_no, UA[index].AI.zipcode, UA[index].AI.address);
 	fclose(User_additional_print);
@@ -256,7 +256,8 @@ void LOGIN_PAGE(int index)
 
 void DepositMoney(int index)
 {
-	char select = NULL;
+	char select = NULL, TimeStamp_call[STRING_LENGTH];
+	double hold_balance = 0;
 	printf("%c%c%c Deposit Money\n", 219, 219, 219);
 	printf("%c Select Method\n", 219);
 	printf("%c Press 1: By-Hand\n", 219);
@@ -267,7 +268,8 @@ void DepositMoney(int index)
 	case '1':
 	{
 		printf("%c --> Deposit Money (Rs): ", 219);
-		scanf("%lf", &UA[index].UAS.Balance);
+		scanf("%lf", &hold_balance);
+		UA[index].UAS.Balance = UA[index].UAS.Balance + hold_balance;
 		strcpy(UA[index].UAS.Sender_name, "N/A");
 		strcpy(UA[index].UAS.Sender_acc_no, "N/A");
 		break;
@@ -279,7 +281,8 @@ void DepositMoney(int index)
 		printf("%c --> Sender Account No: ", 219);
 		gets_s(UA[index].UAS.Sender_acc_no);
 		printf("%c --> Deposit Money (Rs): ", 219);
-		scanf("%lf", &UA[index].UAS.Balance);
+		scanf("%lf", &hold_balance);
+		UA[index].UAS.Balance = UA[index].UAS.Balance + hold_balance;
 		break;
 	}
 	default:
@@ -287,11 +290,18 @@ void DepositMoney(int index)
 		printf("%c Invalid Command\n", 219);
 	}
 	}
-	FILE* Deposit_print = fopen("Deposit_data.bin","ab");
+	//OPEN FILE TO STORE CURRENT BALANCE
+	FILE* Deposit_print = fopen("DATA_FILES\\Deposit_data.bin","ab");
 	fprintf(Deposit_print, "\n%d %lf %s %s",
 		UA[index].account_no, UA[index].UAS.Balance,
 		UA[index].UAS.Sender_name, UA[index].UAS.Sender_acc_no);
 	fclose(Deposit_print);
-	printf("Payment successful at %s", Get_DATE_TIME());
+	strcpy(TimeStamp_call, TimeStamp());
+	printf("%c Payment successful at %s\n", 219, TimeStamp_call);
 	system("pause\n");
+}
+
+void Transaction_history(int index, int action)
+{
+	char USER_FILE_NAME[] = "transaction_history";
 }

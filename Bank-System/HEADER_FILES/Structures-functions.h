@@ -116,9 +116,16 @@ const char* rand_string(int length)
 	return str;
 }
 
-const char* Get_DATE_TIME()
+const char* TimeStamp()
 {
+	char return_timestanp[STRING_LENGTH];
+	char ch = '-';
 	time_t t;
 	time(&t);
-	return ctime(&t);
+	strcpy(return_timestanp, ctime(&t));
+	for (int i = 0; i < strlen(return_timestanp); i++) {
+		if (return_timestanp[i] == ' ')
+			return_timestanp[i] = ch;
+	}
+	return return_timestanp;
 }

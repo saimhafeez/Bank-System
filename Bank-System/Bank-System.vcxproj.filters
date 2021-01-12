@@ -29,5 +29,14 @@
     <ClInclude Include="Structures-functions.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="HEADER_FILES\Menus.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HEADER_FILES\Startup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HEADER_FILES\Structures-functions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
